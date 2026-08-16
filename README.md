@@ -66,11 +66,14 @@ Install dependencies:
 
 PowerShell
 pip install -r requirements.txt
+
+
 3. Environment Configuration
 Create a .env file in the root directory (or copy .env.example):
 
 Code snippet
 GROQ_API_KEY=gsk_your_groq_api_key_here
+
 4. Running the Engine
 Run via Terminal (CLI Mode):
 
