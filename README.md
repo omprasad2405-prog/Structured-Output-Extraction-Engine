@@ -34,6 +34,7 @@ This project enforces a strict **data contract** using Pydantic JSON schemas, gu
 
 
 🛠️ Project Structure
+
 Plaintext
 GenAI_lab1/
 ├── .env.example        # Environment variable template
