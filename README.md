@@ -32,6 +32,7 @@ This project enforces a strict **data contract** using Pydantic JSON schemas, gu
                   ▼
 [ Typed Output / Streamlit Dashboard (result.sentiment, result.urgency_score, etc.) ]
 
+
 🛠️ Project Structure
 Plaintext
 GenAI_lab1/
@@ -42,6 +43,8 @@ GenAI_lab1/
 ├── app.py              # Interactive Streamlit web application
 ├── requirements.txt    # Project dependencies
 └── README.md           # Documentation
+
+
 🚀 Quickstart Guide
 1. Prerequisites
 Python 3.10+ installed
