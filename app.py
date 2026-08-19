@@ -40,7 +40,7 @@ client = Groq(api_key=api_key.strip())
 def analyze_user_text(text_input: str) -> EmotionalFeedback:
     schema_json = EmotionalFeedback.model_json_schema()
     completion = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model="llama3-8b-8192",
         messages=[
             {
                 "role": "system",
