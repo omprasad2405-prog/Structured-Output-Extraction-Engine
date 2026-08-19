@@ -1,6 +1,6 @@
 import os
+from pathlib import Path
 import streamlit as st
-from dotenv import load_dotenv
 from groq import Groq
 from schemas import EmotionalFeedback
 
@@ -11,24 +11,36 @@ st.set_page_config(
     layout="centered"
 )
 
-# Load Environment Variables
-load_dotenv()
-api_key = os.getenv("GROQ_API_KEY")
+# 1. Retrieve API key (Supports both Streamlit Cloud Secrets and local .env)
+api_key = None
+
+# Check Streamlit Cloud secrets first
+if "GROQ_API_KEY" in st.secrets:
+    api_key = st.secrets["GROQ_API_KEY"]
+else:
+    # Fallback to local .env file
+    try:
+        from dotenv import load_dotenv
+        env_path = Path(__file__).resolve().parent / ".env"
+        load_dotenv(dotenv_path=env_path, override=True)
+        api_key = os.getenv("GROQ_API_KEY")
+    except ImportError:
+        pass
 
 st.title("⚡ Structured Feedback Analyzer")
 st.caption("Extract typed JSON schema analytics from raw text using Groq & Pydantic")
 
 if not api_key:
-    st.error("❌ GROQ_API_KEY not found in .env file!")
+    st.error("❌ GROQ_API_KEY not found! Please configure it in Streamlit Secrets or .env file.")
     st.stop()
 
-# Initialize Client
-client = Groq(api_key=api_key)
+# 2. Initialize Groq Client
+client = Groq(api_key=api_key.strip())
 
 def analyze_user_text(text_input: str) -> EmotionalFeedback:
     schema_json = EmotionalFeedback.model_json_schema()
     completion = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="llama-3.1-8b-instant",
         messages=[
             {
                 "role": "system",
@@ -50,7 +62,7 @@ def analyze_user_text(text_input: str) -> EmotionalFeedback:
 user_text = st.text_area(
     "Enter customer/user feedback text:",
     height=120,
-    placeholder="e.g., I've been trying to log in for two hours, but the submit button is unresponsive..."
+    placeholder="e.g., I have an assignment deadline in two hours and the export button is completely broken..."
 )
 
 if st.button("Analyze Feedback", type="primary"):
