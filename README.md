@@ -4,6 +4,13 @@ A lightweight, high-performance Python application and interactive web dashboard
 
 ---
 
+## 🚀 Live Demo
+
+Try out the live feedback analyzer here:  
+👉 **[Launch Streamlit App]( https://structured-output-extraction-eng.streamlit.app/)**
+
+---
+
 ## 🎯 The Problem Solved
 
 Standard Large Language Models (LLMs) return unpredictable, conversational prose. Parsing unstructured text in production software pipelines is fragile and error-prone. 
